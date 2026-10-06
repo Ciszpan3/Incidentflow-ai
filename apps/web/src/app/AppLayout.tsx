@@ -1,4 +1,5 @@
 import { NavLink, Outlet, useParams } from "react-router"
+import "./app.css"
 
 export function IncidentPage() {
     const { incidentId } = useParams();
@@ -10,10 +11,10 @@ const navigation = [{to: "/dashboard", label: "Overview"},
 ]
 
 export function AppLayout() {
-    return <div className="shell">
+    return <div className="appShell">
         <aside className="sidebar">
             <strong>IncidentFlow</strong>
-            <nav>{navigation.map(item => 
+            <nav aria-label="Main navigation">{navigation.map(item => 
                 <NavLink key={item.to} to={item.to}>{item.label}</NavLink>
             )}</nav>
         </aside>

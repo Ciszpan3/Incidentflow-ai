@@ -1,0 +1,9 @@
+.appShell { display: grid; grid-template-columns: 240px 1fr; }
+.sidebar a:focus-visible { outline: 3px solid #60a5fa; }
+.sidebar a[aria-current="page"] { background: #dbeafe; }
+
+@media (max-width: 800px) {
+.appShell { grid-template-columns: 1fr; }
+.sidebar, .sidebar nav { display: flex; gap: 8px; }
+.sidebar { overflow-x: auto; }
+}
