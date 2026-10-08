@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  importFileExtension = "js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Severity {
+  SEV1
+  SEV2
+  SEV3
+  SEV4
+}
+
+enum IncidentStatus {
+  OPEN
+  INVESTIGATING
+  MITIGATED
+  RESOLVED
+}
+
+model Organization {
+  id        String     @id @default(uuid()) @db.Uuid
+  name      String
+  createdAt DateTime   @default(now())
+  services  Service[]
+  incidents Incident[]
+}
+
+model Service {
+  id             String       @id @default(uuid()) @db.Uuid
+  organizationId String       @db.Uuid
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  name           String
+  slug           String
+  incidents      Incident[]
+
+  @@unique([organizationId, slug])
+}
+
+model Incident {
+  id             String          @id @default(uuid()) @db.Uuid
+  organizationId String          @db.Uuid
+  organization   Organization    @relation(fields: [organizationId], references: [id])
+  serviceId      String          @db.Uuid
+  service        Service         @relation(fields: [serviceId], references: [id])
+  title          String
+  description    String
+  severity       Severity
+  status         IncidentStatus  @default(OPEN)
+  version        Int             @default(1)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  timeline       TimelineEvent[]
+
+  @@index([organizationId, status, updatedAt, id])
+}
+
+model TimelineEvent {
+  id           String   @id @default(uuid()) @db.Uuid
+  incidentId   String   @db.Uuid
+  incident     Incident @relation(fields: [incidentId], references: [id])
+  authorUserId String   @db.Uuid
+  kind         String
+  body         String
+  createdAt    DateTime @default(now())
+}
