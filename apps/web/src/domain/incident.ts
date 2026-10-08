@@ -5,8 +5,10 @@ export const incidentStatusSchema = z.enum([
   "OPEN",
   "INVESTIGATING",
   "MITIGATED",
-  "RESLOVED",
+  "RESOLVED",
 ]);
+export type IncidentStatus = z.output<typeof incidentStatusSchema>
+export type Severity = z.output<typeof severitySchema>
 
 export const incidentSchema = z.object({
   id: z.uuid(),

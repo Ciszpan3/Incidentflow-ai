@@ -2,15 +2,18 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router/dom'
 import { router } from './app/router.tsx'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-// createRoot(document.getElementById('root')!).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>,
-// )
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { retry: 1 } }
+})
 const root = document.getElementById('root')
 if(!root) throw new Error("Missing #root element")
 
 createRoot(root).render(
-  <StrictMode><RouterProvider router={router}/></StrictMode>
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router}/>
+    </QueryClientProvider>
+  </StrictMode>
 )
