@@ -1,0 +1,7 @@
+- [ ] URL: filtry i paginacja
+- [ ] TanStack Query: dane serwera i cache
+- [ ] React Hook Form: warto■ci/b■■dy formularza
+- [ ] local state: wy■■cznie krótkie UI
+- [ ] loading, empty, error, retry i background refresh
+- [ ] runtime validation odpowiedzi API
+- [ ] keyboard focus, label oraz aria-describedby

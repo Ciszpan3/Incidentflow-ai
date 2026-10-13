@@ -1,3 +1,4 @@
+import cookieParser from "cookie-parser";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -23,6 +24,7 @@ app.use(
 app.use(helmet());
 app.use(cors({ origin: env.WEB_ORIGIN, credentials: true }));
 app.use(express.json({ limit: "100kb" }));
+app.use(cookieParser());
 app.use("/api/v1", apiRouter);
 app.use((_req, _res, next) =>
   next(new AppError(404, "ROUTE_NOT_FOUND", "Route not found")),
