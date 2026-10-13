@@ -1,8 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { incidentFormSchema, type IncidentFormValues } from "./incidentForm.schema";
-
+import {
+  incidentFormSchema,
+  type IncidentFormValues,
+} from "./incidentForm.schema";
 
 type Props = { onSubmit(values: IncidentFormValues): Promise<void> };
 
@@ -38,6 +40,9 @@ export function IncidentForm({ onSubmit }: Props) {
       </label>
       {formState.errors.root && (
         <p role="alert">{formState.errors.root.message}</p>
+      )}
+      {formState.errors.title && (
+        <p role="alert">{formState.errors.title.message}</p>
       )}
       <button disabled={formState.isSubmitting}>Create incident</button>
     </form>
