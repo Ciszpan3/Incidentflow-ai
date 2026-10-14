@@ -1,14 +1,15 @@
 import { Router } from "express";
-import type { CreateIncidentInput } from "./incident.schemas.js";
 import { createIncidentSchema } from "./incident.schemas.js";
 import { validateBody } from "../../shared/http/validate.js";
+import { createRepositories } from "./incident.repository.js";
+import { prisma } from "../../shared/db/prisma.js";
+import { createIncidentService } from "./incident.service.js";
+import { createIncidentController } from "./incident.controller.js";
+
+const repos = createRepositories(prisma);
+const service = createIncidentService(repos);
+const controller = createIncidentController(service);
 
 export const incidentsRouter = Router();
 
-incidentsRouter.post("/", validateBody(createIncidentSchema), (_req, res) => {
-  const input = res.locals.input as CreateIncidentInput;
-  res.status(201).json({
-    id: "00000000-0000-4000-8000-000000000001",
-    ...input,
-  });
-});
+incidentsRouter.post("/", validateBody(createIncidentSchema), controller);

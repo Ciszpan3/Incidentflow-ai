@@ -12,6 +12,7 @@ export const listIncidentsQuery = z.object({
   status: z.enum(["OPEN", "INVESTIGATING", "MITIGATED", "RESOLVED"]).optional(),
 });
 
+
 export const incidentIdParams = z.object({ incidentId: z.uuid() });
 
 export type CreateIncidentInput = z.output<typeof createIncidentSchema>;
