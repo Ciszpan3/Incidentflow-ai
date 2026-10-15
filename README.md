@@ -1,12 +1,12 @@
-# 🚨 IncidentFlow AI
+# IncidentFlow AI
 
 **Nowoczesna platforma do zarządzania incydentami IT, która pomaga zespołom szybciej reagować na awarie, organizować pracę i wyciągać wnioski z problemów produkcyjnych.**
 
 IncidentFlow AI łączy zarządzanie incydentami, monitorowanie usług i rozwiązania wspierane przez sztuczną inteligencję w jednym miejscu — od zgłoszenia problemu aż po jego rozwiązanie.
 
-> 🚧 **Projekt w trakcie rozwoju** — aplikacja tworzona jako pełny system full-stack.
+>  **Projekt w trakcie rozwoju** — aplikacja tworzona jako pełny system full-stack.
 
-## ✨ Funkcjonalności
+## Funkcjonalności
 
 - **Zarządzanie incydentami** — tworzenie, przeglądanie i aktualizowanie zgłoszeń z podziałem na priorytety oraz statusy.
 - **Organizacja usług** — przypisywanie incydentów do konkretnych usług i systemów.
@@ -14,7 +14,7 @@ IncidentFlow AI łączy zarządzanie incydentami, monitorowanie usług i rozwią
 - **Uwierzytelnianie użytkowników** — bezpieczne logowanie i przypisywanie użytkowników do organizacji.
 - **Wsparcie AI (planowane)** — automatyczne podsumowania incydentów, pomoc w analizie przyczyn awarii oraz przygotowywaniu raportów po incydentach.
 
-## 🛠 Technologie
+## Technologie
 
 | Frontend | Backend | Baza danych i narzędzia |
 |---|---|---|
@@ -23,7 +23,7 @@ IncidentFlow AI łączy zarządzanie incydentami, monitorowanie usług i rozwią
 | TanStack Query | Zod | Vitest |
 | React Hook Form | JWT, bcryptjs | Git |
 
-## 🚀 Uruchomienie lokalne
+## Uruchomienie lokalne
 
 ### Wymagania
 
@@ -85,7 +85,7 @@ npm run dev
 
 Skonfiguruj zmienną `VITE_API_URL`, aby frontend komunikował się z backendem.
 
-## 🎯 Cel projektu
+## Cel projektu
 
 Celem IncidentFlow AI jest uproszczenie procesu reagowania na incydenty IT poprzez połączenie **przejrzystego zarządzania zgłoszeniami, organizacji usług i inteligentnej automatyzacji**.
 
