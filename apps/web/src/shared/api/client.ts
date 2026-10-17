@@ -55,3 +55,35 @@ export async function requestJson<TSchema extends z.ZodType>(
     );
   }
 }
+
+export async function requestVoid(
+  path: string,
+  init: RequestInit = {}
+) {
+  try {
+    const response = await fetch(import.meta.env.VITE_API_URL + path, {
+      ...init,
+      credentials: "include",
+      headers: { "content-type": "application/json", ...init.headers }
+    })
+    if(!response.ok) {
+      throw new ApiError(
+        response.status,
+        "LOGIN ERROR",
+        "Something went wrong"
+      )
+    }
+
+  } catch(cause) {
+    if (cause instanceof ApiError || cause instanceof z.ZodError) throw cause;
+    throw new ApiError(
+      0,
+      "NETWORK_ERROR",
+      "Network request failed",
+      undefined,
+      {
+        cause,
+      },
+    );
+  }
+}

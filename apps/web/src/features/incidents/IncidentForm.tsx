@@ -9,42 +9,58 @@ import {
 type Props = { onSubmit(values: IncidentFormValues): Promise<void> };
 
 export function IncidentForm({ onSubmit }: Props) {
-  const { register, handleSubmit, formState } = useForm<IncidentFormValues>({
-    resolver: zodResolver(incidentFormSchema),
-    defaultValues: {
-      title: "",
-      serviceId: "",
-      severity: "SEV3",
-      description: "",
-    },
-  });
+  const { register, handleSubmit, reset, formState } =
+    useForm<IncidentFormValues>({
+      resolver: zodResolver(incidentFormSchema),
+      defaultValues: {
+        title: "",
+        serviceId: "",
+        severity: "SEV3",
+        description: "",
+      },
+    });
+  async function submit(values: IncidentFormValues): Promise<void> {
+    try {
+      await onSubmit(values);
+      reset();
+    } catch {
+      // Błąd wyświetla komponent nadrzędny na podstawie stanu mutacji.
+      // Nie resetujemy formularza, żeby użytkownik nie utracił danych.
+    }
+  }
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <label>
-        Title <input {...register("title")} />
+    <form className="formStack" onSubmit={handleSubmit(submit)} noValidate>
+      <label className="formField">
+        Title <input className="formInput" {...register("title")} />
       </label>
-      <label>
-        Service ID <input {...register("serviceId")} />
+      <label className="formField">
+        Service ID <input className="formInput" {...register("serviceId")} />
       </label>
-      <label>
+      <label className="formField">
         Severity{" "}
-        <select {...register("severity")}>
+        <select className="formSelect" {...register("severity")}>
           <option>SEV1</option>
           <option>SEV2</option>
           <option>SEV3</option>
           <option>SEV4</option>
         </select>
       </label>
-      <label>
-        Description <textarea {...register("description")} />
+      <label className="formField">
+        Description <textarea className="formTextarea" {...register("description")} />
       </label>
       {formState.errors.root && (
-        <p role="alert">{formState.errors.root.message}</p>
+        <p className="formError" role="alert">{formState.errors.root.message}</p>
       )}
       {formState.errors.title && (
-        <p role="alert">{formState.errors.title.message}</p>
+        <p className="formError" role="alert">{formState.errors.title.message}</p>
       )}
-      <button disabled={formState.isSubmitting}>Create incident</button>
+      {formState.errors.serviceId && (
+        <p className="formError" role="alert">{formState.errors.serviceId.message}</p>
+      )}
+      {formState.errors.description && (
+        <p className="formError" role="alert">{formState.errors.description.message}</p>
+      )}
+      <button className="primaryButton" disabled={formState.isSubmitting}>Create incident</button>
     </form>
   );
 }

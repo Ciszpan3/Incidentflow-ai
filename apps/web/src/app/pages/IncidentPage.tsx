@@ -1,3 +1,3 @@
 export function IncidentPage() {
-  return <div>Incident</div>
+  return <div className="placeholderPage">Incident</div>
 }

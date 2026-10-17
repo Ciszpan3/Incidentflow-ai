@@ -7,15 +7,15 @@ export function IncidentPage() {
 }
 
 const navigation = [{to: "/dashboard", label: "Overview"},
-    {to: "/incidents", label: "Incidents"}, {to: "/runbooks", label: "Runbooks"}
+    {to: "/incidents", label: "Incidents"}, {to: "/runbooks", label: "Runbooks"}, {to: "/login", label: "Login"}
 ]
 
 export function AppLayout() {
     return <div className="appShell">
         <aside className="sidebar">
-            <strong>IncidentFlow</strong>
-            <nav aria-label="Main navigation">{navigation.map(item => 
-                <NavLink key={item.to} to={item.to}>{item.label}</NavLink>
+            <strong className="sidebarBrand">IncidentFlow</strong>
+            <nav className="sidebarNav" aria-label="Main navigation">{navigation.map(item =>
+                <NavLink className="navLink" key={item.to} to={item.to}>{item.label}</NavLink>
             )}</nav>
         </aside>
         <main className="content"><Outlet /></main>

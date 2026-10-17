@@ -13,10 +13,14 @@ export type Severity = z.output<typeof severitySchema>
 export const incidentSchema = z.object({
   id: z.uuid(),
   title: z.string().min(1),
+  description: z.string(),
   severity: severitySchema,
   status: incidentStatusSchema,
-  service: z.object({ id: z.uuid(), name: z.string().min(1) }),
-  startedAt: z.iso.datetime(),
+  service: z.object({
+    id: z.uuid(),
+    name: z.string().min(1),
+  }),
+  createdAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
 });
 

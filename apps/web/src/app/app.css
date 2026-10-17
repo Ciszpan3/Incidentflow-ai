@@ -1,9 +1,128 @@
-.appShell { display: grid; grid-template-columns: 240px 1fr; }
-.sidebar a:focus-visible { outline: 3px solid #60a5fa; }
-.sidebar a[aria-current="page"] { background: #dbeafe; }
+.appShell { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: 100vh; }
 
-@media (max-width: 800px) {
-.appShell { grid-template-columns: 1fr; }
-.sidebar, .sidebar nav { display: flex; gap: 8px; }
-.sidebar { overflow-x: auto; }
+.sidebar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 2rem 1.25rem;
+  color: #fff;
+  background: linear-gradient(155deg, rgba(99, 102, 241, 0.18), transparent 40%), var(--sidebar);
+  box-shadow: 12px 0 32px rgba(15, 23, 42, 0.08);
+}
+
+.sidebarBrand { display: block; margin: 0 0 2.5rem; padding: 0 0.75rem; color: #fff; font-size: 1.25rem; letter-spacing: -0.035em; }
+.sidebarNav { display: grid; gap: 0.45rem; }
+
+.navLink {
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #aeb8ca;
+  font-size: 0.94rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.navLink:hover { color: #fff; background: rgba(255, 255, 255, 0.07); transform: translateX(2px); }
+.navLink[aria-current="page"] { color: #fff; background: var(--primary); box-shadow: 0 8px 24px rgba(79, 70, 229, 0.28); }
+.content { width: 100%; min-width: 0; padding: clamp(2rem, 5vw, 4.5rem); }
+.incidentsPage { width: min(1120px, 100%); margin: 0 auto; }
+
+.incidentsGrid {
+  display: grid;
+  grid-template-columns: minmax(290px, 0.85fr) minmax(360px, 1.25fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.panel {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow-md);
+}
+
+.formStack { display: grid; gap: 1rem; }
+.formField { display: grid; gap: 0.45rem; color: #344054; font-size: 0.83rem; font-weight: 700; }
+
+.formInput, .formSelect, .formTextarea {
+  width: 100%;
+  border: 1px solid #d8deea;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.formInput, .formSelect { min-height: 46px; padding: 0 0.85rem; }
+.formTextarea { min-height: 120px; padding: 0.8rem 0.85rem; resize: vertical; }
+.formInput:hover, .formSelect:hover, .formTextarea:hover { border-color: #b9c2d2; }
+.formInput:focus, .formSelect:focus, .formTextarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); }
+
+.primaryButton, .filterButton { cursor: pointer; border-radius: var(--radius-sm); font-weight: 700; transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease; }
+.primaryButton { min-height: 46px; padding: 0.75rem 1.1rem; color: #fff; background: var(--primary); box-shadow: 0 8px 20px rgba(79, 70, 229, 0.22); }
+.primaryButton:hover:not(:disabled) { background: var(--primary-dark); box-shadow: 0 10px 26px rgba(79, 70, 229, 0.28); transform: translateY(-1px); }
+.primaryButton:disabled { cursor: not-allowed; opacity: 0.55; }
+
+.formError, .statusError { padding: 0.7rem 0.85rem; border: 1px solid #fecdd6; border-radius: var(--radius-sm); color: var(--danger); background: var(--danger-soft); font-size: 0.84rem; font-weight: 600; }
+.incidentList { display: grid; gap: 1rem; }
+.filterBar { display: flex; gap: 0.6rem; padding-bottom: 0.25rem; }
+.filterButton { padding: 0.58rem 1rem; color: #475467; background: var(--surface-soft); border: 1px solid var(--line); }
+.filterButton:hover { color: var(--primary-dark); border-color: #c7d2fe; background: var(--primary-soft); }
+.listState { padding: 1rem; border-radius: var(--radius-sm); color: var(--muted); background: var(--surface-soft); text-align: center; }
+.incidentItems { display: grid; gap: 0.7rem; }
+
+.incidentCard {
+  position: relative;
+  padding: 1rem 1.1rem 1rem 1.35rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: #263248;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-weight: 650;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.incidentCard::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--primary); }
+.incidentCard:hover { border-color: #c7d2fe; box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08); transform: translateY(-1px); }
+
+.loginForm {
+  display: grid;
+  gap: 1rem;
+  width: min(440px, 100%);
+  margin: clamp(1rem, 8vh, 6rem) auto;
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow-md);
+}
+
+.loginForm h1 { margin-bottom: 0.5rem; font-size: 2rem; text-align: center; }
+.placeholderPage { display: grid; width: min(1120px, 100%); min-height: 50vh; margin: 0 auto; place-items: center; border: 1px dashed #cbd5e1; border-radius: var(--radius-lg); color: var(--muted); background: rgba(255, 255, 255, 0.6); }
+
+@media (max-width: 900px) {
+  .appShell { grid-template-columns: 1fr; }
+  .sidebar { position: static; min-height: auto; padding: 1rem; }
+  .sidebarBrand { margin: 0 0 0.8rem; padding: 0 0.35rem; }
+  .sidebarNav { display: flex; overflow-x: auto; }
+  .navLink { flex: 0 0 auto; min-height: 40px; padding: 0.55rem 0.8rem; }
+  .content { padding: 1.5rem; }
+  .incidentsGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .content { padding: 1rem; }
+  .panel, .loginForm { padding: 1.15rem; border-radius: var(--radius-md); }
+  .filterBar { display: grid; grid-template-columns: 1fr 1fr; }
 }

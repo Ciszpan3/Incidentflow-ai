@@ -1,4 +1,7 @@
-import type { CreateIncidentInput } from "./incident.schemas.js";
+import type {
+  CreateIncidentInput,
+  ListIncidentsQuery,
+} from "./incident.schemas.js";
 import type {
   IncidentRepository,
   ServiceRepository,
@@ -29,6 +32,24 @@ export function createIncidentService(deps: Dependencies) {
         description: input.description,
         severity: input.severity,
       });
+    },
+    async list(auth: AuthContext, query: ListIncidentsQuery) {
+      const result = await deps.incidents.listForOrganization({
+        organizationId: auth.organizationId,
+        page: query.page,
+        limit: query.limit,
+        status: query.status,
+      });
+
+      return {
+        items: result.items,
+        meta: {
+          page: query.page,
+          limit: query.limit,
+          total: result.total,
+          totalPages: Math.ceil(result.total / query.limit),
+        },
+      };
     },
   };
 }

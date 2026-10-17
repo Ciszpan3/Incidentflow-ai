@@ -6,7 +6,7 @@ import {
   type IncidentStatus,
 } from "../../domain/incident";
 
-export function IncidentsPage() {
+export function IncidentsList() {
   const [params, setParams] = useSearchParams();
 
   const rawPage = Number(params.get("page") ?? "1");
@@ -30,21 +30,22 @@ export function IncidentsPage() {
   });
 
   return (
-    <main>
-      <h1>Incidents</h1>
+    <main className="incidentList">
 
-      <button onClick={() => setStatus("OPEN")}>Open</button>
+      <div className="filterBar">
+      <button className="filterButton" onClick={() => setStatus("OPEN")}>Open</button>
 
-      <button onClick={() => setStatus("RESOLVED")}>Resolved</button>
+      <button className="filterButton" onClick={() => setStatus("RESOLVED")}>Resolved</button>
+      </div>
 
-      {query.isPending && <p>Loading incidents...</p>}
+      {query.isPending && <p className="listState">Loading incidents...</p>}
 
-      {query.isError && <p>Failed to load incidents.</p>}
+      {query.isError && <p className="statusError">Failed to load incidents.</p>}
 
       {query.isSuccess &&
-        query.data.items.map((incident) => (
-          <p key={incident.id}>{incident.title}</p>
-        ))}
+        <div className="incidentItems">{query.data.items.map((incident) => (
+          <p className="incidentCard" key={incident.id}>{incident.title}</p>
+        ))}</div>}
     </main>
   );
 }

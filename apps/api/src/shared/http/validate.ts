@@ -19,3 +19,23 @@ export function validateBody<TSchema extends z.ZodType>(
     next();
   };
 }
+
+export function validateQuery<TSchema extends z.ZodType>(
+  schema: TSchema,
+): RequestHandler {
+  return (req, res, next) => {
+    const parsed = schema.safeParse(req.query);
+
+    if (!parsed.success) {
+      next(
+        new AppError(422, "VALIDATION_ERROR", "Check query parameters", {
+          fields: z.flattenError(parsed.error).fieldErrors,
+        }),
+      );
+      return;
+    }
+
+    res.locals.query = parsed.data as z.output<TSchema>;
+    next();
+  };
+}

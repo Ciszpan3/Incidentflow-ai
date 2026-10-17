@@ -7,6 +7,7 @@ import {
   NotFoundPage,
   RunbooksPage,
 } from "./pages";
+import { LoginForm } from "../features/auth/LoginForm";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: "/incidents", element: <IncidentsPage /> },
       { path: "/incidents/:incidentId", element: <IncidentPage /> },
       { path: "/runbooks", element: <RunbooksPage /> },
+      { path: "/login", element: <LoginForm /> },
       { path: "*", element: <NotFoundPage /> },
     ],
   },

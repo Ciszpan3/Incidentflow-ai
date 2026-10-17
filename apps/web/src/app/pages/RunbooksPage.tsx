@@ -1,3 +1,3 @@
 export function RunbooksPage() {
-  return <div>Runbooks</div>
+  return <div className="placeholderPage">Runbooks</div>
 }

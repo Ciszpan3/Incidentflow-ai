@@ -12,7 +12,12 @@ export const requireAuth: RequestHandler = (req, res, next) => {
 		return;
 	}
 	try {
-		res.locals.auth = verifySession(parsed.data.session);
+		const claims = verifySession(parsed.data.session);
+
+		res.locals.auth = {
+			userId: claims.sub,
+			organizationId: claims.organizationId
+		}
 		next();
 	} catch {
 		next(new AppError(401, "UNAUTHENTICATED", "Invalid session"));

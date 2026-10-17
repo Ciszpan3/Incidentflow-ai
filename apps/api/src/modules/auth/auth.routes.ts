@@ -12,6 +12,7 @@ const loginSchema = z.object({
   password: z.string().min(8).max(128),
 });
 type LoginInput = z.output<typeof loginSchema>;
+
 export const authRouter = Router();
 
 authRouter.post(

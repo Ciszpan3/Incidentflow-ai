@@ -10,6 +10,6 @@ it("blokuje submit i pokazuje błąd pustego tytułu", async () => {
 
 	await user.click(screen.getByRole("button", { name: /create/i }));
 
-	expect(await screen.findByText(/title is required/i)).toBeVisible();
+	expect(await screen.findByText(/title must contain at least 8 characters/i)).toBeVisible();
 	expect(onSubmit).not.toHaveBeenCalled();
 });
